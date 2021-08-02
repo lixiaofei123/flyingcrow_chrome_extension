@@ -49,7 +49,49 @@ function download(url) {
   });
 }
 
-function uploadFromUrl(url,referer, successback) {
+function uploadFromBase64Str(dataurl, successback) {
+  chrome.storage.sync.get(["url", "token"], function (result) {
+    if (result.url === "") {
+      notify("飞鸦提醒", `请先设置url和token`);
+    } else {
+      let serverurl = result.url;
+      let token = result.token;
+
+      let arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      if (mime === "image/png" || mime === "image/jpeg") {
+        let filename = "1." + (mime === "image/png" ? "png" : "jpeg");
+        let file = new File([u8arr], filename, {
+          type: mime
+        });
+
+        var formData = new FormData();
+        formData.append("file", file);
+        formData.append("token", token);
+        formData.append("noname", "true");
+        let xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          let data = JSON.parse(this.responseText);
+          if (data.code === 200) {
+            let filePath = data.data.filePath;
+            let fileName = data.data.fileName;
+            getFileByPath(`${filePath}/${fileName}`, successback);
+          }
+        };
+        xhttp.open("POST", `${serverurl}/file/upload`, true);
+        xhttp.send(formData);
+      }
+    }
+  });
+}
+
+function uploadFromUrl(url, referer, successback) {
   chrome.storage.sync.get(["url", "token"], function (result) {
     if (result.url === "") {
       notify("飞鸦提醒", `请先设置url和token`);
@@ -107,8 +149,7 @@ function getFileByPath(path, successback) {
 function notify(title, message, callback) {
   callback = callback || function () {};
   chrome.notifications.create(
-    `flying_crow_download_quit_${new Date().getTime()}`,
-    {
+    `flying_crow_download_quit_${new Date().getTime()}`, {
       title: title,
       type: "basic",
       iconUrl: "flyingcrow.png",
@@ -121,14 +162,12 @@ function notify(title, message, callback) {
 chrome.downloads.onCreated.addListener(function (item) {
   if (item.bytesReceived === 0) {
     chrome.notifications.create(
-      `flying_crow_download_${item.finalUrl}`,
-      {
+      `flying_crow_download_${item.finalUrl}`, {
         title: "发现您正在下载",
         type: "basic",
         iconUrl: "flyingcrow.png",
         message: "是否将其加入到Flying Crow的离线下载任务中",
-        buttons: [
-          {
+        buttons: [{
             title: "立即下载",
           },
           {
@@ -150,12 +189,26 @@ chrome.contextMenus.onClicked.addListener(function (itemData) {
     }
   } else if (itemData.menuItemId === "flying_crow_to_link") {
     let srcUrl = itemData.srcUrl || itemData.linkUrl;
-    let pageUrl = itemData.pageUrl
+    let pageUrl = itemData.pageUrl;
     if (srcUrl) {
       if (srcUrl.indexOf("http://") === 0 || srcUrl.indexOf("https://") === 0) {
-        uploadFromUrl(srcUrl,pageUrl, (data) => {
-          chrome.storage.sync.set({ fromurl: data }, function () {
-            chrome.browserAction.setIcon({ path: "flyingcrow_blue.png" });
+        uploadFromUrl(srcUrl, pageUrl, (data) => {
+          chrome.storage.sync.set({
+            fromurl: data
+          }, function () {
+            chrome.browserAction.setIcon({
+              path: "flyingcrow_blue.png"
+            });
+          });
+        });
+      } else if (srcUrl.indexOf("data:") === 0) {
+        uploadFromBase64Str(srcUrl, (data) => {
+          chrome.storage.sync.set({
+            fromurl: data
+          }, function () {
+            chrome.browserAction.setIcon({
+              path: "flyingcrow_blue.png"
+            });
           });
         });
       }
