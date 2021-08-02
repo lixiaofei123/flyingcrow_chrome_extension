@@ -1,0 +1,139 @@
+.container{
+	padding: 10px 30px;
+}
+
+.title{
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.loginform{
+	width: 380px;
+}
+
+.formitem{
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.formitem .label{
+	width: 80px;
+	flex-shrink: 0;
+	text-align: right;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.formitem .input{
+	width: 240px;
+	flex-shrink: 0;
+	padding-left: 20px;
+}
+
+.formitem .input input{
+	width: 100%;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid;
+    color: #768192;
+    background-color: #fff;
+    border-color: #d8dbe0;
+    border-radius: .25rem;
+	outline: none;
+}
+
+button{
+	padding: 6px 40px;
+	font-size: 14px;
+	background: #2a1ab9;
+	color: white;
+	border: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.formitem .input  button:hover{
+	background: #2517a3;
+}
+
+.info{
+	margin-top: 40px;
+}
+
+.quotaitem{
+	display: flex;
+	margin-top: 15px;
+}
+
+.quotaitem .label{
+	width: 40px;
+	flex-shrink: 0;
+	text-align: right;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.quotaitem .progressbox{
+	padding-left: 20px;
+	flex: 1;
+}
+
+.progress_bg{
+	width:100%;
+	height: 20px;
+	border-radius: 100px;
+    background-color: #ebeef5;
+	position: relative;
+}
+
+.progress{
+	position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #409eff;
+    text-align: right;
+    border-radius: 100px;
+    line-height: 1;
+}
+
+.progress_text{
+	position: absolute;
+    left: 20px;
+    line-height: 20px;
+	color: black;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.saveinfo{
+	font-size: 12px;
+}
+
+#fromurlBox{
+	margin-top: 15px;
+}
+
+#fromurlBox textarea{
+	width: 100%;
+	padding: .375rem .75rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+	height: 60px;
+    background-clip: padding-box;
+    border: 1px solid;
+    color: #768192;
+    background-color: #fff;
+    border-color: #d8dbe0;
+    border-radius: .25rem;
+	outline: none;
+	resize: none;
+	overflow:hidden;
+	margin-bottom: 5px;
+}
+
+

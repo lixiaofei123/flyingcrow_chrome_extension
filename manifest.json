@@ -1,0 +1,24 @@
+{
+  "name": "飞鸦-下载器",
+  "description": "一个简单易用的飞鸦拓展",
+  "version": "1.0",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "downloads",
+    "contextMenus",
+    "notifications",
+    "storage"
+  ],
+  "icons": {
+    "128": "flyingcrow.png"
+  }
+}

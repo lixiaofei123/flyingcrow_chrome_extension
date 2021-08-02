@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/popup.css">
+	<script src="js/popup.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div>
+			<div class="title">
+				<img src="images/logo_main.png" height="48">
+			</div>
+			<div class="loginform">
+				<div class="formitem">
+					<div class="label">飞鸦地址</div>
+					<div class="input">
+						<input type="text" id="server" name="server" />
+					</div>
+				</div>
+				<div class="formitem">
+					<div class="label">Token</div>
+					<div class="input">
+						<input type="text" id="token" name="token" />
+					</div>
+				</div>
+			</div>
+			<div class="loginform">
+				<div class="formitem">
+					<div class="label"></div>
+					<div class="input">
+						<button id="saveBtn">保存</button>
+						<span class="saveinfo" id="saveinfo"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="info" id="userfo" style="display: none;">
+			<p>欢迎您&nbsp;&nbsp;<span style="color:#2982cc" id="name">李小飞</span></p>
+			<p>您当前一共存储了<span style="color:#2982cc" id="filecount">111</span>个文件，存储、流量配额使用情况如下</p>
+			<div style="margin-top: 20px;">
+				<div class="quotaitem">
+					<div class="label">
+						存储
+					</div>
+					<div class="progressbox">
+						<div class="progress_bg">
+							<div class="progress" id="storage_progress" style="width:0%"></div>
+							<div class="progress_text" id="storage_progress_text"></div>
+						</div>
+					</div>
+				</div>
+				<div class="quotaitem">
+					<div class="label">
+						流量
+					</div>
+					<div class="progressbox">
+						<div class="progress_bg">
+							<div class="progress"  id="traffic_progress" style="width:0%"></div>
+							<div class="progress_text" id="traffic_progress_text"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fromurlBox"  style="display: none;">
+			<p>最后一次转换的链接是<p>
+			<textarea id="fromurltext"></textarea>
+			<button id="copyLink">复制链接</button>
+			<span class="copyinfo" id="copyinfo"></span>
+		</div>
+	</div>
+</body>
+
+</html>
