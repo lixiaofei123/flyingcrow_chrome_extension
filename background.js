@@ -159,26 +159,27 @@ function notify(title, message, callback) {
   );
 }
 
-chrome.downloads.onCreated.addListener(function (item) {
-  if (item.bytesReceived === 0) {
-    chrome.notifications.create(
-      `flying_crow_download_${item.finalUrl}`, {
-        title: "发现您正在下载",
-        type: "basic",
-        iconUrl: "flyingcrow.png",
-        message: "是否将其加入到Flying Crow的离线下载任务中",
-        buttons: [{
-            title: "立即下载",
-          },
-          {
-            title: "不再提醒",
-          },
-        ],
-      },
-      function () {}
-    );
-  }
-});
+// chrome.downloads.onCreated.addListener(function (item) {
+//   if (item.bytesReceived === 0) {
+// 	console.log(item)
+//     chrome.notifications.create(
+//       `flying_crow_download_${item.finalUrl}`, {
+//         title: "发现您正在下载",
+//         type: "basic",
+//         iconUrl: "flyingcrow.png",
+//         message: "是否将其加入到Flying Crow的离线下载任务中",
+//         buttons: [{
+//             title: "立即下载",
+//           },
+//           {
+//             title: "不再提醒",
+//           },
+//         ],
+//       },
+//       function () {}
+//     );
+//   }
+// });
 chrome.contextMenus.onClicked.addListener(function (itemData) {
   if (itemData.menuItemId === "flying_crow_download") {
     let srcUrl = itemData.srcUrl || itemData.linkUrl;
